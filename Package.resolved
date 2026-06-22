@@ -1,0 +1,60 @@
+{
+  "originHash" : "034b9a033b262807dc54440bfdbb3ea091ddfd61c02d77a048a8924635d14829",
+  "pins" : [
+    {
+      "identity" : "dominantcolors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DenDmitriev/DominantColors.git",
+      "state" : {
+        "revision" : "a05327d36092c47e9ddc77ce565eb35a5b4a4a6e",
+        "version" : "1.2.2"
+      }
+    },
+    {
+      "identity" : "libwebp-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/awxkee/libwebp-ios.git",
+      "state" : {
+        "revision" : "09ab26afc64c55a49332c396c4b465c278fcb05f",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "mosaickit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fdenis75/MosaicKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b34fbad3f39fcfa1e1f677ffa3d1ca90fbd90bcc"
+      }
+    },
+    {
+      "identity" : "sjsassetexportsession",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/samsonjs/SJSAssetExportSession.git",
+      "state" : {
+        "revision" : "c77c3cacd7373704dc0e69927ac2aac023904418",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "92448c359f00ebe36ae97d3bd9086f13c7692b5a",
+        "version" : "1.13.2"
+      }
+    },
+    {
+      "identity" : "webp.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/awxkee/webp.swift.git",
+      "state" : {
+        "revision" : "10562e79e338de46e70f0f5c67b24cb90e02adb2",
+        "version" : "1.1.2"
+      }
+    }
+  ],
+  "version" : 3
+}
