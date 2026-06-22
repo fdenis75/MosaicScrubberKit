@@ -1,0 +1,47 @@
+name: MosaicScrubberDemo
+options:
+  bundleIdPrefix: com.fdenis75
+  deploymentTarget:
+    macOS: "26.0"
+packages:
+  MosaicScrubberKit:
+    path: ../..
+targets:
+  MosaicScrubberDemo:
+    type: application
+    platform: macOS
+    sources:
+      - path: MosaicScrubberDemo
+    dependencies:
+      - package: MosaicScrubberKit
+        product: MosaicScrubberKit
+    info:
+      path: MosaicScrubberDemo/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: $(DEVELOPMENT_LANGUAGE)
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        NSHumanReadableCopyright: "Copyright (c) 2026 Francois Denis. All rights reserved."
+        NSPrincipalClass: NSApplication
+        NSSupportsAutomaticTermination: true
+        NSSupportsSuddenTermination: true
+    settings:
+      base:
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: ""
+        ENABLE_HARDENED_RUNTIME: true
+        ENABLE_PREVIEWS: true
+        GENERATE_INFOPLIST_FILE: false
+        MACOSX_DEPLOYMENT_TARGET: "26.0"
+        MARKETING_VERSION: "1.0"
+        PRODUCT_BUNDLE_IDENTIFIER: com.fdenis75.MosaicScrubberDemo
+        SWIFT_VERSION: "6.2"
+        SWIFT_STRICT_CONCURRENCY: complete
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: false
