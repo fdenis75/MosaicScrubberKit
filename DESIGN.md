@@ -12,8 +12,10 @@ The package is not a full video player shell. It owns the scrubber experience ar
 - A horizontal thumbnail timeline below the player.
 - A current-time playhead drawn over the thumbnail strip.
 - A hover or drag position indicator.
-- A floating preview above the timeline while the user hovers or drags.
-- An optional monospaced timecode label attached to the floating preview.
+- A floating "cinema loupe" preview above the timeline while the user hovers or drags.
+- An optional monospaced timecode HUD attached to the floating preview.
+- Optional temporal delta and live-preview indicator chips.
+- Optional film perforations and hover spotlighting in the thumbnail strip.
 
 The main layout is a vertical stack:
 
@@ -23,7 +25,7 @@ Thumbnail timeline
 Floating preview appears above the hovered timeline position
 ```
 
-The package keeps the media content visually primary. The timeline is compact, clipped to an 8-point corner radius, and uses generated video thumbnails once available. Before thumbnails load, it shows a neutral placeholder strip sized to the configured thumbnail count.
+The package keeps the media content visually primary. The timeline is compact, clipped to an 8-point corner radius, and uses generated video thumbnails once available. Before thumbnails load, it shows a themed placeholder strip sized to the configured thumbnail count. High-density timelines keep a stable per-thumbnail width and become horizontally scrollable rather than compressing all frames into the visible width.
 
 ## Interaction Model
 
@@ -31,10 +33,13 @@ The scrubber supports two related interactions:
 
 - Hover preview on macOS: moving over the thumbnail strip updates the preview moment without committing playback position.
 - Drag scrubbing: dragging across the strip updates the preview moment and can seek the main player when the drag ends.
+- Edge autoscroll: when the pointer is held near the left or right side of an overflowing timeline, the strip scrolls in that direction. Scroll speed ramps up as the pointer moves closer to the edge.
 
 When previewing, MosaicScrubberKit uses a separate muted `AVPlayer` inside `PreviewPlaybackSession`. The preview player seeks to the requested moment, plays for up to `maximumPreviewDuration`, and exposes video frames through `AVPlayerItemVideoOutput`.
 
 Metal renders those frames in the floating preview. As the user moves between moments, `MetalPreviewRenderer` keeps the previous frame and blends into the next frame over `transitionDuration`, which avoids abrupt visual jumps during scrubbing.
+
+The cinema loupe appears with a short magnetic-lift transition: scale, vertical offset, and opacity animate with a spring. A themed anchor stem connects the loupe to the hovered timeline position.
 
 ## Configuration
 
@@ -44,12 +49,17 @@ Apps configure behavior through `ScrubberConfiguration`.
 |---|---|---|
 | `thumbnailCount` | Number of timeline segments and generated thumbnails. Higher values show more visual detail and use more extraction/cache work. | `48` |
 | `trackHeight` | Height of the thumbnail strip. Values below 44 points are clamped. | `64` |
-| `previewSize` | Size of the floating Metal preview. | `320 x 180` |
+| `previewSize` | Adaptive floating preview preset: `.small`, `.medium`, or `.large`. The resolved dimensions preserve source-video aspect ratio and fit the available player width. | `.medium` |
 | `maximumPreviewDuration` | Maximum time the floating preview plays after each hover or drag update. | `1.5` seconds |
 | `seekTolerance` | AVFoundation seek tolerance for preview and main-player seeking. Lower values can feel more precise but may cost more. | `0.12` seconds |
 | `hoverDebounce` | Intended debounce interval for hover-driven preview updates. | `0.05` seconds |
 | `transitionDuration` | Metal blend duration when transitioning between preview frames. | `0.12` seconds |
 | `showsTimecode` | Shows or hides the floating preview timecode label. | `true` |
+| `showsTemporalDelta` | Shows or hides the delta between current playback time and preview time. | `true` |
+| `showsLiveIndicator` | Shows or hides the live preview indicator chip. | `true` |
+| `showsFilmPerforations` | Shows or hides the filmstrip perforation dots. | `true` |
+| `usesHoverSpotlight` | Dims non-hovered thumbnails and emphasizes the hovered segment. | `true` |
+| `visualTheme` | Selects `.automatic`, `.obsidianFlux`, or `.obsidianFluxLight`. | `.automatic` |
 | `commitsSeekOnDragEnd` | Seeks the main player to the drag endpoint when the drag ends. | `true` |
 | `prefetchWindow` | Intended surrounding thumbnail/preview prefetch window. | `3` |
 | `cachePolicy` | Thumbnail retention policy. Use `.memory(maxItems:)` or `.none`. | `.memory(maxItems: 96)` |
@@ -57,11 +67,24 @@ Apps configure behavior through `ScrubberConfiguration`.
 Typical app tuning:
 
 - Use more thumbnails for wide desktop media browsers.
+- Use high thumbnail counts for review workflows; the timeline scrolls horizontally instead of shrinking thumbnails below inspection size.
 - Use a taller track for review/editing tools where frame detail matters.
-- Use a larger preview for desktop inspection workflows.
-- Use a smaller preview and fewer thumbnails for compact windows.
+- Use `.large` for desktop inspection workflows.
+- Use `.small` and fewer thumbnails for compact windows.
 - Lower `transitionDuration` for snappier movement; raise it slightly for a softer preview feel.
 - Disable `showsTimecode` when the host app already displays precise time elsewhere.
+- Disable `showsTemporalDelta` or `showsLiveIndicator` when the host app needs a quieter preview HUD.
+- Force `.obsidianFlux` for dark edit suites, `.obsidianFluxLight` for bright review tools, or keep `.automatic` for normal app integration.
+
+## Visual Themes
+
+`ScrubberVisualTheme` has three modes:
+
+- `.automatic`: resolves from the surrounding SwiftUI `colorScheme`.
+- `.obsidianFlux`: dark carbon surfaces, electric-blue active states, off-white text, low-eye-strain preview chrome.
+- `.obsidianFluxLight`: white glass surfaces, pro-blue active states, dark text, light technical hairlines.
+
+The theme affects the timeline background, placeholder shimmer, playhead color, hover indicator, film perforations, preview chrome, preview border, timecode HUD, live indicator, anchor stem, shadow, and non-hovered thumbnail opacity.
 
 ## Data Model
 
@@ -156,7 +179,15 @@ MosaicScrubberKit works best when used as part of a media-first surface:
 - In media-heavy apps, a dark surrounding appearance can help the video and thumbnails remain the focus.
 - Size the scrubber from available container space, not device assumptions.
 
-The component itself has stable internal dimensions from `trackHeight` and `previewSize`. In responsive app layouts, change those values intentionally when the container becomes narrow rather than letting surrounding layout compress the scrubber unpredictably.
+The component itself has stable internal dimensions from `trackHeight` and adaptive preview presets. In responsive app layouts, change `previewSize` intentionally when the container becomes narrow rather than letting surrounding layout compress the scrubber unpredictably.
+
+For non-standard video aspect ratios, the floating preview preserves the source shape:
+
+- Landscape video resolves to a landscape loupe.
+- Vertical video resolves to a tall, narrow loupe.
+- Ultrawide video resolves to a wider, shorter loupe while enforcing a readable minimum short edge.
+
+The selected preset controls the intended visual weight, while available player width prevents the loupe from becoming too large for the current container.
 
 ## Performance Model
 

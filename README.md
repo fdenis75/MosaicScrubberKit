@@ -2,7 +2,9 @@
 
 Interactive SwiftUI video scrubbing for Apple platforms.
 
-MosaicScrubberKit provides a thumbnail timeline below an `AVPlayer` and a Metal-backed floating preview that can play a short muted preview window from the current hover or drag position.
+MosaicScrubberKit provides a thumbnail timeline below an `AVPlayer` and a Metal-backed floating preview that can play a short muted preview window from the current hover or drag position. High-density timelines scroll horizontally, with edge autoscroll while hovering or dragging near the strip boundaries.
+
+The default visual treatment follows the surrounding SwiftUI color scheme with the Obsidian Flux design system: a carbon, pro-video dark theme and a bright, technical light theme. Both include a living filmstrip, themed playhead, animated cinema loupe, anchor stem, live chip, and monospaced timecode HUD.
 
 ## Design
 
@@ -34,6 +36,27 @@ struct PlayerScreen: View {
     }
 }
 ```
+
+## Visual Configuration
+
+```swift
+let configuration = ScrubberConfiguration(
+    thumbnailCount: 56,
+    trackHeight: 72,
+    previewSize: .large,
+    visualTheme: .automatic
+)
+
+ScrubbingVideoPlayer(
+    source: source,
+    player: player,
+    configuration: configuration
+)
+```
+
+Use `.obsidianFlux` to force the dark pro-video theme, `.obsidianFluxLight` to force the light technical theme, or `.automatic` to follow SwiftUI's color scheme.
+
+`previewSize` is an adaptive preset: `.small`, `.medium`, or `.large`. MosaicScrubberKit resolves the actual floating preview dimensions from the selected preset, the current player width, and the source video's natural aspect ratio, so vertical and ultrawide videos keep a matching preview shape.
 
 ## Verification
 

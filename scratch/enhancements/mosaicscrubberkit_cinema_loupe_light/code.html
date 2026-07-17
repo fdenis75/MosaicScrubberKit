@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian Flux | Cinema Loupe</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#414755",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "on-primary-container": "#fefcff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-primary-fixed-variant": "#004493",
+                        "on-tertiary-fixed": "#351000",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#005bc1",
+                        "surface-container": "#f0edec",
+                        "secondary-fixed": "#d3e3ff",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container-high": "#ebe7e7",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1c1b1b",
+                        "secondary-container": "#2696fe",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#0060aa",
+                        "on-secondary-fixed": "#001c39",
+                        "inverse-primary": "#adc6ff",
+                        "background": "#fcf9f8",
+                        "primary-fixed-dim": "#adc6ff",
+                        "outline": "#717786",
+                        "tertiary-container": "#c64f00",
+                        "surface-dim": "#dcd9d9",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#9e3d00",
+                        "tertiary-fixed": "#ffdbcc",
+                        "primary-container": "#0070eb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "secondary-fixed-dim": "#a3c9ff",
+                        "error": "#ba1a1a",
+                        "surface": "#fcf9f8",
+                        "on-primary-fixed": "#001a41",
+                        "primary": "#0058bc",
+                        "on-secondary-container": "#002d55",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb595",
+                        "on-secondary-fixed-variant": "#004882",
+                        "on-background": "#1c1b1b",
+                        "inverse-surface": "#313030",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c1c6d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "panel-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "code-sm": ["JetBrains Mono"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "code-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                        "display-lg": ["32px", {"lineHeight": "1", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .technical-hairline {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .glass-surface {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .cinematic-shadow {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+        .loupe-stem {
+            width: 2px;
+            background: linear-gradient(to top, #0070eb, transparent);
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dcd9d9; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center px-8 h-16">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg text-display-lg text-primary uppercase tracking-tighter">OBSIDIAN FLUX</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6 text-label-caps uppercase">
+<a class="text-primary hover:text-secondary transition-colors duration-200" href="#">Editor</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Workflow</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Render</a>
+</nav>
+<div class="h-6 w-px bg-outline-variant"></div>
+<button class="active:scale-95 transition-transform text-primary">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-desktop max-w-container-max mx-auto h-screen flex flex-col gap-6">
+<!-- Main Cinematic Player -->
+<section class="relative flex-grow w-full rounded-xl overflow-hidden glass-surface technical-hairline cinematic-shadow group">
+<img class="w-full h-full object-cover" data-alt="A breathtaking cinematic wide shot of a futuristic minimalist laboratory overlooking a serene arctic landscape. The interior features polished white surfaces, transparent glass panels, and sophisticated glowing blue interface elements. High-key natural light from the ice fields floods the room, creating a crisp, airy aesthetic with subtle blue-toned shadows. The overall mood is one of clinical precision and intellectual calm, perfectly aligning with a professional technical workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU_wJ4gGkA8o8ebV8SR7JB8YL31pfiCmMsHqAu5DMuQFIRP4Sxq7Ru1M4snl8znG4OhpcqXQiKp0vV286VGB6tTWk6p6HZrL5MtrACyOYwcPT-dREA3RjeIgcHeRqMsZSWiIzPEHUiIYImUbS46bBw36pvn0MmI4g0PMa8GeFwh-rVPcwknHBVJLbkSY_DjvaNnSnPjetufOxrLd9c13qD7zYOArbyyrhOaKI3D29j1h2tZMC2g9joZjgHvVtZZOCOc2WJceqoarM"/>
+<!-- Technical HUD Overlay -->
+<div class="absolute inset-0 p-8 flex flex-col justify-between pointer-events-none">
+<div class="flex justify-between items-start">
+<div class="bg-inverse-surface/90 text-inverse-on-surface px-4 py-2 rounded-lg font-code-sm text-code-sm flex items-center gap-3 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                        REC: 4K PRORES 4444
+                    </div>
+<div class="flex flex-col gap-2 items-end">
+<div class="bg-surface-container-lowest/80 text-on-surface px-3 py-1 rounded technical-hairline font-label-caps">LUT: NEUTRON_V3</div>
+<div class="bg-surface-container-lowest/80 text-on-surface px-3 py-1 rounded technical-hairline font-label-caps">FPS: 23.976</div>
+</div>
+</div>
+<div class="flex justify-center">
+<div class="bg-on-surface text-surface-container-lowest px-8 py-3 rounded-full font-code-sm text-headline-lg flex items-center gap-4 shadow-2xl">
+<span class="opacity-40">00:12:44:</span>
+<span class="font-bold">18</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Scrubbing Area & Living Filmstrip -->
+<section class="relative h-48 flex flex-col justify-end">
+<!-- Cinema Loupe (Floating Preview) -->
+<div class="absolute left-1/3 bottom-32 -ml-24 flex flex-col items-center transition-all duration-300 pointer-events-none" id="cinema-loupe">
+<div class="w-48 aspect-video rounded-lg overflow-hidden technical-hairline cinematic-shadow ring-4 ring-primary-container/20">
+<img class="w-full h-full object-cover" data-alt="A detailed macro close-up of a high-tech camera lens element, reflecting a bright, clinical studio environment. The image is crisp and high-contrast, showing intricate optical coatings and precise mechanical parts. The lighting is clean and professional, using a white and electric blue color palette to emphasize technical sophistication and modern design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDdMYE8MUa7V0iAbJcbgj0APcguBI6-nuJ6o-pRvNRlc3Z0LpHWCWoLrV4PWDoJl-71r2rhgAocwwJ3vhmuIQx9rQU5Pl-Iva3RilzIMg9g_5GsoysJs3XMcw1v5xY4nJwgr4TIR39LUJ5H_RHMqcE2BLnxXDfOXVk8jE6rzJe_neMrmBMpQkgJPTyg6sm4jiDlK9Vp96HEZGdBQbj-n80rA7WGnKvbQkZ9rwlltmH8z9-b5s9_lt_qcxYrRGvhy8lV0rMV2tAk68"/>
+</div>
+<div class="loupe-stem h-12"></div>
+<div class="w-4 h-4 bg-primary rounded-full border-4 border-surface-container-lowest shadow-lg"></div>
+</div>
+<!-- Living Filmstrip Timeline -->
+<div class="w-full h-24 bg-surface-container-low rounded-xl technical-hairline overflow-hidden relative">
+<div class="absolute inset-0 flex items-center px-1 opacity-50 pointer-events-none">
+<div class="w-full h-px bg-outline-variant"></div>
+</div>
+<div class="flex h-full gap-1 p-1">
+<!-- Filmstrip Frames -->
+<div class="flex-none w-32 h-full rounded bg-surface-container-high overflow-hidden opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A minimalist architectural shot of a bright gallery interior with clean lines and white walls. Soft, diffused lighting creates a sense of infinite space and clinical precision, perfectly matching a professional technical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgn7T6bFrJV9y87Z-MuSWUowpUN4OsAM5u4Ljbo9rcJb1kn4xErY_2NoMS_GzLsyGSvouedR6fL-WhueUDPZZgng1YHQJVgrhJofOnQNSVUqY5l8pWnHJ31Xu8OugATQN42BKBMttMHOaZyu5Zi5sMBeXsLp98nezlTGavN8HLgXR9ciMS8ZqggRjQ4wqqrs1mDLdt5euXq1E0Q2uyODA1L_b2dpdj3Y42qbrohw8k5AageY7BG9lMIO3KPIqaZOTKcbnJkI3Gh_g"/>
+</div>
+<div class="flex-none w-32 h-full rounded bg-surface-container-high overflow-hidden cursor-pointer ring-2 ring-primary ring-inset">
+<img class="w-full h-full object-cover" data-alt="A futuristic UI dashboard showing abstract data visualizations in high-contrast blue and white. The layout is clean and technical, with thin hairlines and professional typography, reflecting a high-end software development environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4vIbdxD2Sgm4pHu_4gueWoTSPjPGYhl-XGhb54IuD2uvBFx6IvGy2ECHQLAwPNhQITbrbPT-yPHNy6K67LjRqY5l7lZIpH8ilfam_k21FDd59sNgtWtg2oZtBIXfnPnY6wexAqj0O1Glo-7J6dSxBLVqZId6OnY06iYffXLUwtHppUEUTo9P287-nhTVQ6jHIglk8cNQJw3QVpWY-uoadbJIkwEQD84oKj9Z-zbspJc1XokUit8KcgynZ2kZV1ze5y4EuGlZZgJ0"/>
+</div>
+<div class="flex-none w-32 h-full rounded bg-surface-container-high overflow-hidden opacity-80 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="An abstract digital render of flowing crystalline structures in a bright white environment. The lighting is high-key with subtle electric blue highlights, creating a sense of clarity and modern technical innovation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHCaizr8u0qvVbzQsc_lKK4tsnzWzNDNvfBfdHPEYrSWSiIqADkYP1yr3z8MylMUk7FPXXTNDsPr4WU4jDHjufdeEUQ4zOFfxVqeFryOPyDDP6LdH5-Yn8Dy3-Fe-a4y85TgAjSTnYtj55SAcR_VDSop8D9e4ylZdtwBjaztW6X-zBck6U7ByOJuUNfXMalaQX03DPljYXb0iq8qaSZoGGjGN7bUcJZE-JreDyCSeqriD07bHNGxt3_sS3CxdzHnxie4MEcWV36kg"/>
+</div>
+<div class="flex-grow h-full bg-surface-container-highest/30 rounded flex items-center justify-center border-2 border-dashed border-outline-variant/50">
+<span class="font-label-caps text-on-surface-variant/40">BUFFERING SEQUENCE...</span>
+</div>
+</div>
+<!-- Timeline Marks -->
+<div class="absolute bottom-0 w-full h-4 flex justify-between px-4 items-end pb-1">
+<div class="h-2 w-px bg-outline"></div>
+<div class="h-1 w-px bg-outline-variant"></div>
+<div class="h-1 w-px bg-outline-variant"></div>
+<div class="h-1 w-px bg-outline-variant"></div>
+<div class="h-2 w-px bg-outline"></div>
+<div class="h-1 w-px bg-outline-variant"></div>
+<div class="h-1 w-px bg-outline-variant"></div>
+<div class="h-1 w-px bg-outline-variant"></div>
+<div class="h-2 w-px bg-outline"></div>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-primary text-on-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">skip_next</span>
+</button>
+<div class="h-4 w-px bg-outline-variant mx-2"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">00:12:44:18 / 00:24:00:00</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">volume_up</span>
+<div class="w-24 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-2/3 h-full bg-primary"></div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-2xl border-t border-outline-variant flex justify-around items-center h-20 px-8 pb-safe shadow-[0_-4px_20px_rgba(41,151,255,0.15)]">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">movie</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container/20 text-secondary-container rounded-full p-3 shadow-[0_0_15px_rgba(0,184,241,0.4)] active:scale-90 duration-150">
+<span class="material-symbols-outlined">timeline</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">layers</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">person</span>
+</button>
+</nav>
+<!-- Interactive Layer Script -->
+<script>
+        document.addEventListener('mousemove', (e) => {
+            const loupe = document.getElementById('cinema-loupe');
+            if (e.clientY > window.innerHeight - 300) {
+                const xPos = e.clientX;
+                const percentage = (xPos / window.innerWidth) * 100;
+                loupe.style.left = `${percentage}%`;
+                loupe.style.opacity = '1';
+                loupe.style.transform = 'translateY(0)';
+            } else {
+                loupe.style.opacity = '0';
+                loupe.style.transform = 'translateY(20px)';
+            }
+        });
+
+        // Initialize micro-interactions
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Haptic feedback simulation
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(10);
+                }
+            });
+        });
+    </script>
+</body></html>

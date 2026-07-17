@@ -1,4 +1,4 @@
-import AVFoundation
+x import AVFoundation
 import Testing
 @testable import MosaicScrubberKit
 import MosaicScrubberCore
