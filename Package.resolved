@@ -1,5 +1,5 @@
 {
-  "originHash" : "034b9a033b262807dc54440bfdbb3ea091ddfd61c02d77a048a8924635d14829",
+  "originHash" : "6bdc30ce84fb4a03a870dddfa080614b6f4fe4aa81cd1c488bbf88ce4d0b4555",
   "pins" : [
     {
       "identity" : "dominantcolors",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/fdenis75/MosaicKit.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "b34fbad3f39fcfa1e1f677ffa3d1ca90fbd90bcc"
+        "revision" : "0b5af024e646cf8923e34082cabc1a1469cd31d7",
+        "version" : "1.13.0"
       }
     },
     {
